@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Deepfake Audio Detection Engine — Phase 1 + Phase 1.5 (Training)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Core: Deep learning ───────────────────────────────────────────────────────
+# CPU build — swap for torch+cuda for GPU training (see note below)
+torch>=2.1.0
+
+# ── Audio processing & feature extraction ────────────────────────────────────
+librosa>=0.10.0
+soundfile>=0.12.1          # Fast audio I/O backend for librosa
+
+# ── Scientific computing ──────────────────────────────────────────────────────
+numpy>=1.24.0
+
+# ── Phase 1.5: Training metrics ──────────────────────────────────────────────
+scikit-learn>=1.3.0        # AUC-ROC, EER, roc_curve
+
+# ── Phase 1.5: Dataset loading ───────────────────────────────────────────────
+datasets>=2.14.0           # HuggingFace datasets (Tanishq125/deepfake-audio-detection)
+huggingface-hub>=0.20.0    # Required by datasets
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GPU training (optional): replace torch line above with:
+#   torch>=2.1.0+cu121
+# Install via:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+# ─────────────────────────────────────────────────────────────────────────────
