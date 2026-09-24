@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deepfake / AI Media Audit Engine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- LEFT SIDEBAR TOOLBAR -->
+    <div class="sidebar-toolbar">
+      <button class="tool-btn active" id="toolDeepfake" title="Deepfake & AI Media Audit">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Deepfake</span>
+      </button>
+      
+      <button class="tool-btn hide-btn" id="toolHide" title="Collapse Panel">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" stroke-width="2"/></svg>
+        <span>Hide</span>
+      </button>
+    </div>
+
+    <!-- MAIN AUDIT PANEL -->
+    <div class="main-panel">
+      
+      <!-- MODAL HEADER -->
+      <div class="modal-header">
+        <div class="header-title">
+          <span class="zap-icon">⚡</span>
+          <span>Deepfake & AI Risk Audit Engine</span>
+        </div>
+        <button class="close-btn" id="closeBtn">✕</button>
+      </div>
+
+      <!-- 4 SEPARATE MODALITY TABS -->
+      <div class="tabs-container">
+        <button class="tab-btn active" id="tabImage">
+          <span>🖼 Image</span>
+        </button>
+        <button class="tab-btn" id="tabVideo">
+          <span>🎥 Video</span>
+        </button>
+        <button class="tab-btn" id="tabAudio">
+          <span>🔊 Audio</span>
+        </button>
+        <button class="tab-btn" id="tabText">
+          <span>📄 Text</span>
+        </button>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- SECTION 1: IMAGE AUDIT -->
+      <!-- =================================================================== -->
+      <div id="sectionImage" class="modality-section">
+        <div class="section-banner badge-image">
+          <span>IMAGE DETECTION</span>
+        </div>
+
+        <div class="drop-zone" id="dropZoneImage">
+          <div class="drop-icon">🖼</div>
+          <div class="drop-title">Drop Image file or Click to Upload</div>
+          <div class="drop-subtitle">Supports JPG, PNG, WEBP, BMP, TIFF</div>
+          <input type="file" id="fileInputImage" class="hidden" accept="image/*">
+        </div>
+
+        <div class="url-input-group">
+          <input type="url" id="urlInputImage" class="url-input" placeholder="Paste Image URL (https://example.com/photo.jpg)...">
+          <button class="scan-btn" id="btnAuditImage">Audit Image</button>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- SECTION 2: VIDEO AUDIT -->
+      <!-- =================================================================== -->
+      <div id="sectionVideo" class="modality-section hidden">
+        <div class="section-banner badge-video">
+          <span>VIDEO DETECTION</span>
+        </div>
+
+        <div class="drop-zone" id="dropZoneVideo">
+          <div class="drop-icon">🎥</div>
+          <div class="drop-title">Drop Video file or Click to Upload</div>
+          <div class="drop-subtitle">Supports MP4, MOV, AVI, WEBM</div>
+          <input type="file" id="fileInputVideo" class="hidden" accept="video/*">
+        </div>
+
+        <div class="url-input-group">
+          <input type="url" id="urlInputVideo" class="url-input" placeholder="Paste Video URL (https://example.com/clip.mp4)...">
+          <button class="scan-btn" id="btnAuditVideo">Audit Video</button>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- SECTION 3: AUDIO AUDIT -->
+      <!-- =================================================================== -->
+      <div id="sectionAudio" class="modality-section hidden">
+        <div class="section-banner badge-audio">
+          <span>AUDIO DETECTION</span>
+        </div>
+
+        <div class="drop-zone" id="dropZoneAudio">
+          <div class="drop-icon">🔊</div>
+          <div class="drop-title">Drop Audio file or Click to Upload</div>
+          <div class="drop-subtitle">Supports MP3, WAV, FLAC, M4A, OGG, AAC</div>
+          <input type="file" id="fileInputAudio" class="hidden" accept="audio/*">
+        </div>
+
+        <div class="url-input-group">
+          <input type="url" id="urlInputAudio" class="url-input" placeholder="Paste Audio URL (https://example.com/speech.mp3)...">
+          <button class="scan-btn" id="btnAuditAudio">Audit Audio</button>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- SECTION 4: TEXT & LINK AUDIT -->
+      <!-- =================================================================== -->
+      <div id="sectionText" class="modality-section hidden">
+        <div class="section-banner badge-text">
+          <span>TEXT & LINK AUDIT</span>
+        </div>
+
+        <div class="drop-zone" id="dropZoneText">
+          <div class="drop-icon">📄</div>
+          <div class="drop-title">Drop Document or Click to Upload</div>
+          <div class="drop-subtitle">Supports TXT, PDF, DOCX, MD, JSON & Web Links</div>
+          <input type="file" id="fileInputText" class="hidden" accept=".txt,.pdf,.doc,.docx,.md,.json">
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <textarea id="textInputArea" class="text-area-input" rows="3" placeholder="Paste text or website link (https://...) to check safety..."></textarea>
+          <button class="scan-btn" id="btnAuditText">Audit Text / Link</button>
+        </div>
+      </div>
+
+      <!-- FORENSIC RISK REPORT DRAWER -->
+      <div id="resultsDrawer" class="results-drawer hidden">
+        <div class="result-header">
+          <span class="modality-badge badge-image" id="resModality">IMAGE</span>
+          <span class="verdict-tag verdict-authentic" id="resRiskBadge">LOW RISK</span>
+        </div>
+
+        <div class="risk-score-box">
+          <div class="risk-score-header">
+            <span>DEEPFAKE RISK SCORE</span>
+            <span class="risk-score-value" id="resRiskScore">0.0%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-fill fill-authentic" id="resProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="metrics-grid" id="metricsGrid">
+          <!-- Populated dynamically via popup.js -->
+        </div>
+
+        <!-- ONE LINE REASONING ENGINE CARD -->
+        <div class="reasoning-box" id="resReasoningBox">
+          <div class="reasoning-label">💡 AUDIT REASONING</div>
+          <div class="reasoning-text" id="resReasoningText">Analyzing media features...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
