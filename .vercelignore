@@ -1,0 +1,25 @@
+# Training scripts (not needed at runtime)
+train.py
+train_image_model.py
+fast_train_image_model.py
+train_video_model.py
+
+# Test scripts (not needed at runtime)
+test_audio.py
+test_image.py
+test_video.py
+
+# Sample/test images (not needed in deployment)
+deepfake_image/
+deepfake_video/
+
+# Python cache (auto-rebuilt)
+__pycache__/
+*.pyc
+*.pyo
+
+# Dev/editor files
+.venv/
+venv/
+env/
+*.env

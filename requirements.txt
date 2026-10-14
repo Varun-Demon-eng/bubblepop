@@ -1,28 +1,39 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Deepfake Audio Detection Engine — Phase 1 + Phase 1.5 (Training)
+# Deepfake Detection Backend — Optimized Slim Dependencies
+# Target: Minimize total installed size for deployment
 # ─────────────────────────────────────────────────────────────────────────────
 
-# ── Core: Deep learning ───────────────────────────────────────────────────────
-# CPU build — swap for torch+cuda for GPU training (see note below)
+# ── Core: Deep learning (CPU-ONLY build — ~500 MB vs ~3.5 GB for full torch) ─
+# IMPORTANT: Install with this exact command to get the slim CPU build:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 torch>=2.1.0
+torchvision>=0.16.0
+
+# ── Web server ────────────────────────────────────────────────────────────────
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.6    # Required by FastAPI for file uploads
+pydantic>=2.0.0
 
 # ── Audio processing & feature extraction ────────────────────────────────────
 librosa>=0.10.0
 soundfile>=0.12.1          # Fast audio I/O backend for librosa
 
+# ── Image & Video processing (headless = no GUI = 50% smaller) ───────────────
+opencv-python-headless>=4.8.0  # Use headless variant — saves ~100 MB vs full opencv
+
 # ── Scientific computing ──────────────────────────────────────────────────────
 numpy>=1.24.0
+scipy>=1.11.0
 
-# ── Phase 1.5: Training metrics ──────────────────────────────────────────────
+# ── Phase 1.5: Training metrics (only needed for training, not inference) ─────
 scikit-learn>=1.3.0        # AUC-ROC, EER, roc_curve
 
-# ── Phase 1.5: Dataset loading ───────────────────────────────────────────────
-datasets>=2.14.0           # HuggingFace datasets (Tanishq125/deepfake-audio-detection)
-huggingface-hub>=0.20.0    # Required by datasets
-
 # ─────────────────────────────────────────────────────────────────────────────
-# GPU training (optional): replace torch line above with:
-#   torch>=2.1.0+cu121
-# Install via:
-#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+# REMOVED packages (not needed for inference/deployment):
+#   datasets            — only needed for training data download
+#   huggingface-hub     — only needed for training data download
+#
+# GPU training (optional): replace torch install command with:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 # ─────────────────────────────────────────────────────────────────────────────
