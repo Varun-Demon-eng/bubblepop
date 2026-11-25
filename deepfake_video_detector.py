@@ -374,6 +374,7 @@ class VideoDeepfakeRPPGEngine:
         )
         log.info("Analysis complete -> Verdict: %s (BPM: %.1f)", report.verdict, bpm)
         return report
+        
 
     def _analyze_fft_bvp(self, bvp_signal: np.ndarray) -> Tuple[float, float]:
         """

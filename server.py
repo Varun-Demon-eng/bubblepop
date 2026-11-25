@@ -20,6 +20,9 @@ import urllib.request
 from pathlib import Path
 from typing import Optional, List, Dict, Any
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -168,7 +171,7 @@ def health_check():
         }
     }
 
-VIRUSTOTAL_API_KEY = "ec5743c42e74c9a7109b854e536855dceeb58472e799b8862b599983049d685c"
+VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY", "")
 
 def audit_url_virustotal(target_url: str) -> dict:
     """

@@ -14,6 +14,7 @@ fastapi>=0.104.0
 uvicorn>=0.24.0
 python-multipart>=0.0.6    # Required by FastAPI for file uploads
 pydantic>=2.0.0
+python-dotenv>=1.0.0       # Load environment variables from .env
 
 # ── Audio processing & feature extraction ────────────────────────────────────
 librosa>=0.10.0
